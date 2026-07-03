@@ -1,0 +1,53 @@
+jsClick:(
+event click
+)
+
+check if the elem is clickable
+
+javascriptexecutor: ( helper for click/select, used when element is not clickable/not visible
+)
+
+May 3 - 10 TODO;
+DONE - task: if test fail it will retry once.
+DONE - task: will have screenshot if test fails. `
+DONE - task: implement global wait 60 seconds. wait for loading.
+note: same test site.
+IMPROVE - refactor: redo fixture and login user Json or sheet parser. use data from json or sheets.
+implement: before method, before class, include the afters, tear downs.
+
+May 24 to May 31
+Use different types of selector
+CSS, and XPATH
+Self healing selector
+
+eg of getting details inside a div *Xpath Axes*
+Usages:
+//div[@class='inventory_item']/descendant::div[contains(text(),'carry.allTheThings()')]
+
+samples:
+descendant
+parent
+
+June 21 to 27
+soft assert 
+parallel tesing
+refactor fixture on e2e, move the initialization on fixtures(page setups)
+
+
+28 to 5 (make a new test to implement and explore previous task)
+use the getByRole and other locators from playwright 
+custom test commands (use the sample from lifesaver automation)
+in base page make a helpers tool for typing, different clicking like double clicking, send keys, js click, js executor, 
+one method that for those clicking event
+helper for waits
+
+
+LOGIN-001		Login with valid credentials	                	Smoke, Regression
+LOGIN-002		Login with invalid username	                    	Regression
+LOGIN-003		Login with invalid password                 		Regression
+LOGIN-004		Login with both invalid username and password		Regression
+LOGIN-005		Username empty	                                	Regression
+LOGIN-006		Password empty	                                	Regression
+LOGIN-007		Both fields empty	                            	Regression
+LOGIN-008		Password is masked	                            	Regression
+LOGIN-009		Press Enter submits login	                    	Regression

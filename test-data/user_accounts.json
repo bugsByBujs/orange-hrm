@@ -1,0 +1,14 @@
+{
+  "user": {
+    "username": "bujs01",
+    "password": "Password01!"
+  },
+  "userAdmin": {
+    "username": "Admin",
+    "password": "admin123"
+  },
+  "invalidUser": {
+    "username": "invalid",
+    "password": "invalid"
+  }
+}
