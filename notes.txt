@@ -51,3 +51,13 @@ LOGIN-006		Password empty	                                	Regression
 LOGIN-007		Both fields empty	                            	Regression
 LOGIN-008		Password is masked	                            	Regression
 LOGIN-009		Press Enter submits login	                    	Regression
+
+
+July 12 - 19 task
+separate negative and positive, happy path, 
+custom run commands
+happy path, basic functionality
+    login
+    create user, full deets
+    login the created user
+    file a leave with the created user

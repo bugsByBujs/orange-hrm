@@ -1,7 +1,7 @@
 import { expect } from "@playwright/test";
 import { BasePage } from "./base.page";
 
-export type requiredFields = 'username' | 'password';
+type requiredFields = 'username' | 'password';
 
 export class LoginPage extends BasePage {
     // locators
