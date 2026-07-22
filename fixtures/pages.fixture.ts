@@ -29,9 +29,9 @@ const test = baseTest.extend<Fixtures>({
 export { test }
 
 export const testE2E = test.extend({
-    loginPage: async({page}, use) => {
-        const lp = new LoginPage(page);
-        await lp.goto('/web/index.php/auth/login')
-        await use(lp);
+    dashboardPage: async({page}, use) => {
+        const dp = new DashboardPage(page);
+        await dp.goto('/web/index.php/dashboard/index');
+        await use(dp);
     }
 })

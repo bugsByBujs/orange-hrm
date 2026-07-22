@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npx playwright test",
     "test:smoke": "npx playwright test --grep @smoke",
-    "test:regression": "npx playwright --grep @happy-path"
+    "test:e2e": "npx playwright test --grep @happy-path"
   },
   "keywords": [],
   "author": "",

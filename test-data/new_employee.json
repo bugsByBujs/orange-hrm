@@ -1,0 +1,16 @@
+{
+    "new_employee": {
+        "first_name": "John",
+        "middle_name": "Doe",
+        "last_name": "Smith",
+        "credentials": {
+            "username": "johnsmith",
+            "password": "Password123!"
+        },
+        "leave": {
+            "type": "Personal",
+            "start_date": "2026-24-07",
+            "end_date": "2026-24-07"
+        }
+    }
+}

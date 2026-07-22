@@ -7,7 +7,7 @@ export default defineConfig({
 
   workers: 4,
 
-  retries: 2,
+  retries: 1,
 
   reporter: 'html',
 
@@ -39,6 +39,7 @@ export default defineConfig({
   projects: [
     {
       name: 'setup',
+      testDir: './setup',
       testMatch: /.*\.setup\.ts/,
     },
     {
@@ -49,12 +50,13 @@ export default defineConfig({
       }
     },
     {
-      name: 'chromium',
+      name: 'e2e',
+      testDir: './tests/e2e',
       dependencies: ['setup'],
       use: {
         ...devices['Desktop Chrome'],
         storageState: '.auth/user.json',
-      },
+      }
     },
 
     // {
