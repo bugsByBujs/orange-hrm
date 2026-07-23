@@ -33,7 +33,9 @@ export class NavBarPage extends BasePage {
         await this.page.waitForLoadState('networkidle');
     }
     async gotoPIM() {
-        await this.click(this.pim, "singleClick");
+        // await this.click(this.pim, "singleClick");
+        await this.pim.click();
+        await this.page.waitForURL('**/pim/viewEmployeeList');
     }
     async expandSidePanel() {
         await this.click(this.expandBtn, "singleClick");

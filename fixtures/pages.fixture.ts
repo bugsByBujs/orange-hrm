@@ -3,12 +3,14 @@ import { DashboardPage } from "../pages/dashboard.page"
 import { LoginPage } from "../pages/login.page";
 import { NavBarPage } from '../pages/common/navbar.page';
 import { PimPage } from '../pages/pim.page';
+import { LeavePage } from '../pages/leave.page';
 
 type Fixtures = {
     loginPage: LoginPage;
     dashboardPage: DashboardPage;
     navBar: NavBarPage;
     pimPage: PimPage;
+    leavePage: LeavePage
 }
 
 const test = baseTest.extend<Fixtures>({
@@ -23,6 +25,9 @@ const test = baseTest.extend<Fixtures>({
     },
     navBar: async ({page}, use) => {
         await use(new NavBarPage(page));
+    },
+    leavePage: async({page}, use) => {
+        await use(new LeavePage(page));
     }
 })
 
