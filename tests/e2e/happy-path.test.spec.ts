@@ -1,7 +1,15 @@
 import { testE2E as test } from '../../fixtures/pages.fixture'
-import { userAdmin } from '../../test-data/user_accounts.json'
-import { new_employee } from '../../test-data/new_employee.json'
 import { faker } from '@faker-js/faker'
+
+//* Helper
+function generatePassword(length = 10) {
+    const letters = faker.internet.password({ length: length - 1, pattern: /[A-Za-z]/ });
+    const number = faker.number.int({ min: 0, max: 9 }).toString();
+
+    // insert the number at a random position so it's not always at the end
+    const pos = faker.number.int({ min: 0, max: letters.length });
+    return letters.slice(0, pos) + number + letters.slice(pos);
+}
 
 test.describe('Happy Path - Full user journey', async () => {
 
@@ -17,22 +25,25 @@ test.describe('Happy Path - Full user journey', async () => {
              ** admin click assign leave - navigates to assign leave page
              ** user fills required fields (continue even without leave credits)
              ** success toast pops up
-             * admin logs out
-             * new account logs in
-             * new user clicks Leave from nav bar - navigates to my leave list
-             * leave should show on the Record Found section with proper date set
+             ** admin logs out
+             ** new account logs in
+             ** new user clicks Leave from nav bar - navigates to my leave list
+             ** leave should show on the Record Found section with proper date set
              */
             const firstName = faker.person.firstName();
             const middleName = faker.person.middleName();
             const lastName = faker.person.lastName();
-            const fullName =  firstName + " " + middleName + " "  + lastName;
+            const fullName = firstName + " " + middleName + " " + lastName;
             const employeeId = (lastName.slice(0, 5) + faker.string.numeric(5)).slice(0, 10);
+            const leaveType = 'Personal';
+            const fromDate = "2026-09-09";
+            const toDate = "2026-09-09";
 
             const username = faker.internet.username({ firstName, lastName: lastName })
-            const password = faker.internet.password({ length: 10, pattern: /[A-Za-z0-9]/ });
+            const password = generatePassword(10);
 
-            console.log('name: ', firstName + " " + middleName + " "  + lastName)
-            console.log('User & Pass: ', username, " & ", password )
+            console.log('name: ', firstName + " " + middleName + " " + lastName)
+            console.log('User & Pass: ', username, " & ", password)
             console.log('Id: ', employeeId)
 
             // test.step('Admin logs in to the site', async () => {
@@ -42,7 +53,6 @@ test.describe('Happy Path - Full user journey', async () => {
 
             await test.step('Navigate to PIM page', async () => {
                 await navBar.gotoPage('PIM');
-                // await navBar.gotoPIM()
                 await pimPage.isPageTitleVisible();
             });
 
@@ -76,23 +86,23 @@ test.describe('Happy Path - Full user journey', async () => {
             })
 
             await test.step('Admin gives employeee a leave', async () => [
-                await test.step('Navigate to leave page', async() => {
+                await test.step('Navigate to leave page', async () => {
                     await navBar.gotoPage('Leave');
                     await leavePage.isPageTitleVisible()
                 }),
 
-                await test.step('Go to Assing Leave', async() => {
+                await test.step('Go to Assing Leave', async () => {
                     await leavePage.gotoAssignLeave();
                     await leavePage.isAssignLeaveTitleVisible()
                 }),
 
-                await test.step('Fill up leave form', async() => {
+                await test.step('Fill up leave form', async () => {
                     //! use the date format yyyy-mm-dd
                     await leavePage.fillLeaveForm(
-                        fullName, 
-                        "Personal",
-                        "2026-09-09",
-                        "2026-09-09",
+                        fullName,
+                        leaveType,
+                        fromDate,
+                        toDate,
                     )
                     await leavePage.submit()
                     await leavePage.expectConfirmModal()
@@ -101,5 +111,33 @@ test.describe('Happy Path - Full user journey', async () => {
                 })
             ])
 
+            await test.step('Admin logs out', async () => {
+                await navBar.expandUserMenu();
+                await navBar.logout();
+                await loginPage.isTitleVisible();
+            })
+
+            await test.step('New employee login in', async () => {
+                await loginPage.login(username, password)
+                await dashboardPage.isTitleVisible();
+            })
+
+            await test.step('check if leave is visible', async () => {
+
+                await test.step('Navigat to Leave page', async () => {
+                    await navBar.gotoPage('Leave');
+                    await leavePage.isPageTitleVisible();
+                })
+
+                await test.step('Verify if leave is reflected to the new user', async () => {
+                    await leavePage.isRecordTitleVisible()
+                    await leavePage.expectRecordAdded(
+                        fullName,
+                        fromDate,
+                        leaveType
+                    )
+                    console.log(`Full E2E Create for the user: ${fullName}, Leave from ${fromDate} to ${toDate}`)
+                })
+            })
         });
 });

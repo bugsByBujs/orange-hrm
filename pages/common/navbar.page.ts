@@ -11,6 +11,11 @@ export class NavBarPage extends BasePage {
     private expandBtn = this.page.getByRole('navigation', { name: 'Sidepanel' }).getByRole('button');
 
     private pim = this.page.getByRole('link', { name: 'PIM' });
+
+    //* top nav bar
+    // private userMenu = this.page.locator('span')
+    private userMenu = this.page.locator(`//span[@class='oxd-userdropdown-tab']`)
+    private logoutBtn = this.page.getByRole('menuitem', { name: 'Logout'})
     /*
     private admin = this.page.getByRole('link', { name: 'Admin' }).click();
     private leave = this.page.getByRole('link', { name: 'Leave' }).click();
@@ -32,16 +37,22 @@ export class NavBarPage extends BasePage {
         await this.click(this.navLinks(name), "singleClick");
         await this.page.waitForLoadState('networkidle');
     }
-    async gotoPIM() {
-        // await this.click(this.pim, "singleClick");
-        await this.pim.click();
-        await this.page.waitForURL('**/pim/viewEmployeeList');
-    }
+
     async expandSidePanel() {
         await this.click(this.expandBtn, "singleClick");
     }
     async searchInMenu(term: string) {
         await this.fill(this.searchBarField, term);
+    }
+
+
+    //* top bar 
+    async expandUserMenu() {
+        await this.userMenu.click()
+    }
+
+    async logout() {
+        await this.logoutBtn.click()
     }
     
 
