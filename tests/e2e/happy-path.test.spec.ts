@@ -16,6 +16,7 @@ test.describe('Happy Path - Full user journey', async () => {
     test('E2E-001 - Create a new employee and give the new user a leave it should reflect with the user when they sign in',
         { tag: ['@happy-path'] }, async ({ page, loginPage, dashboardPage, pimPage, navBar, leavePage }) => {
             /**
+             * Todo: * marks as done 
              ** admin logs in
              ** admin clicks PIM from nav bar - navigates to Pim page
              ** admin clicks add btn - navigates to Add Employee page
